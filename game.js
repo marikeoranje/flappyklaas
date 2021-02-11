@@ -115,7 +115,22 @@ cvs.addEventListener("click", function(evt){
 
 
 // BACKGROUND
-const bg = {
+const bg1 = {
+    sX : 92,
+    sY : 0,
+    w : 274 - 92,
+    h : 226,
+    x : 0,
+    y : cvs.height - 226,
+    
+    draw : function(){
+        ctx.drawImage(sprite, this.sX, this.sY, this.w, this.h, this.x, this.y, this.w, this.h);
+        ctx.drawImage(sprite, this.sX, this.sY, this.w, this.h, this.x + this.w, this.y, this.w, this.h);
+    }
+    
+}
+
+const bg2 = {
     sX : 0,
     sY : 0,
     w : 274,
@@ -124,8 +139,6 @@ const bg = {
     y : cvs.height - 226,
     
     draw : function(){
-        ctx.drawImage(sprite, this.sX, this.sY, this.w, this.h, this.x, this.y, this.w, this.h);
-        
         ctx.drawImage(sprite, this.sX, this.sY, this.w, this.h, this.x + this.w, this.y, this.w, this.h);
     }
     
@@ -140,7 +153,7 @@ const fg = {
     x: 0,
     y: cvs.height - 112,
     
-    dx : 2,
+    dx : 2.5,
     
     draw : function(){
         ctx.drawImage(sprite, this.sX, this.sY, this.w, this.h, this.x, this.y, this.w, this.h);
@@ -320,7 +333,6 @@ const pipes = {
             if(p.x + this.w <= 0){
                 this.position.shift();
                 score.value += 1;
-                SCORE_S.play();
                 score.best = Math.max(score.value, score.best);
                 localStorage.setItem("best", score.best);
             }
@@ -510,7 +522,8 @@ function draw(){
     ctx.fillStyle = "#639BFF";
     ctx.fillRect(0, 0, cvs.width, cvs.height);
     
-    bg.draw();
+    bg1.draw();
+    bg2.draw();
     pipes.draw();
     food1.draw();
     food2.draw();
